@@ -1,112 +1,121 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+/* eslint-disable prettier/prettier */
+import React, {useState} from 'react';
+import {Image, View, Text, TextInput, StyleSheet, TouchableOpacity, Alert} from 'react-native';
+function App() {
+  const [firstLover, setFirstLover] = useState('');
+  const [secondLover, setSecondLover] = useState('');
+  const [result, setResult] = useState(false);
+  const p = Math.floor(Math.random() * 100);
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const resultLove = () => {
+      setResult(true);
+    ;
   };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+    <View style={styles.myView}>
+        <Image source={require('.//image/logo.png')} style={styles.img} />
+        <Text style={styles.dev}>    developed by Al Amin Kabbo</Text>
+        {result ?
+        <View style={styles.resultView}>
+         <Text style={styles.resultText}>{firstLover} </Text>
+         <Image source={require('.//image/love.png')}style={styles.love}/>
+         <Text style={styles.resultText}> {secondLover}{'\n\n'}    {p}%</Text>
+        </View> 
+        : null}
+      {!result ? <TextInput
+        style = {styles.inputText}
+        placeholder="Enter First Lover Name"
+        onChangeText={text => setFirstLover(text)}
+        value={firstLover}
+      /> : null}
+      {!result ?<TextInput
+        style = {styles.inputText}
+        placeholder="Enter your Partner Name"
+        onChangeText={text => setSecondLover(text)}
+        value={secondLover}
+      /> : null}
+      <TouchableOpacity style={styles.calculateLove}
+            onPress={()=>{
+                if(firstLover === '' || setSecondLover === ''){
+                    Alert.alert('Opps!!', 'Choice your partner then try again..!');
+                    return;
+                    }
+                if(result)
+                {
+                    setResult(false);
+                    setFirstLover('');
+                    setSecondLover('');
+                }
+                else
+                setResult(true);
+            }}
+      >
+            <Text style = {styles.bottonText}>{result ? 'Try Again' : 'Calculate Love'}</Text>
+      </TouchableOpacity>
+    </View>
 
+  );
+}
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+    inputText:{
+      margin:10,
+      borderBottomWidth:1,
+    },
+    calculateLove:{
+        color:'red',
+        backgroundColor:'#ed0900',
+        borderRadius: 20,
+        width:'50%',
+        alignSelf:'center',
+    },
+    bottonText:{
+        textAlign:'center',
+        color:'white',
+        fontSize:20,
+        justifyContent:'center',
+        paddingVertical: 10,
+    },
+    resultText:{
+        textAlign:'center',
+        fontSize: 30,
+        
+    },
+    img: {
+        alignSelf: 'center',
+        height: 90,
+        width: 230,
+        borderRadius: 15,
+        padding:20
+      },
+      love:{
+        height: 90,
+        width: 90,
+        justifyContent:'center'
+      },
+      myView: {
+        flex: 2,
+        padding: 15,
+        margin: 2,
+        elevation: 5,
+        borderRadius: 15,
+        backgroundColor: 'white',
+        justifyContent: 'center',
+      },
+      resultView: {
+        flex: 2,
+        flexDirection: 'row',
+        padding: 15,
+        margin: 2,
+        elevation: 5,
+        borderRadius: 15,
+        backgroundColor: 'white',
+        justifyContent: 'center',
+      },
+      dev: {
+        fontSize: 12,
+        textAlign: 'center',
+        padding: 1,
+      },
 });
 
 export default App;
