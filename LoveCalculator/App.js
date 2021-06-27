@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, {useState} from 'react';
+import React, {useState,useEffect}from 'react';
 import {Image, View, Text, TextInput, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 function App() {
   const [firstLover, setFirstLover] = useState('');
@@ -7,66 +7,78 @@ function App() {
   const [result, setResult] = useState(false);
   const p = Math.floor(Math.random() * 100);
 
-  const resultLove = () => {
-      setResult(true);
-    ;
-  };
   return (
-    <View style={styles.myView}>
+        <View style={styles.myView}>
         <Image source={require('.//image/logo.png')} style={styles.img} />
         <Text style={styles.dev}>    developed by Al Amin Kabbo</Text>
         {result ?
-        <View style={styles.resultView}>
-         <Text style={styles.resultText}>{firstLover} </Text>
-         <Image source={require('.//image/love.png')}style={styles.love}/>
-         <Text style={styles.resultText}> {secondLover}{'\n\n'}    {p}%</Text>
-        </View> 
+          <View style={styles.newView}>
+              <View style={styles.resultView}>
+              <Text style={styles.resultText}>{firstLover}</Text>
+              <Image style={styles.love} source={require('.//image/love.png')}/>
+              <Text style={styles.resultText}>{secondLover}</Text>
+              </View>
+              <View>
+                  <Text style={styles.percent}>{p}%</Text>
+                  {p<=30 ? <Text style={styles.comment}>{'\n'} Bad Choice!!</Text>: null}
+                  {p>30 && p<=60 ? <Text style={styles.comment}>{'\n'} Not Bad!! It's Okey</Text>: null}
+                  {p>60 && p<=80 ? <Text style={styles.comment}>{'\n'} WOW !! Good Choice</Text>: null}
+                  {p>80 && p<=90 ? <Text style={styles.comment}>{'\n'} Congratulations !! Perfect Choice</Text>: null}
+                  {p>90 && p<=100 ? <Text style={styles.comment}>{'\n'} ও মাগো!! টুরু লাভ </Text>: null}
+              </View>
+         </View>
         : null}
       {!result ? <TextInput
         style = {styles.inputText}
-        placeholder="Enter First Lover Name"
+        placeholder="Enter Your Lover Name"
         onChangeText={text => setFirstLover(text)}
         value={firstLover}
       /> : null}
-      {!result ?<TextInput
+      {!result ? <TextInput
         style = {styles.inputText}
-        placeholder="Enter your Partner Name"
+        placeholder="Enter Your Partner Name"
         onChangeText={text => setSecondLover(text)}
         value={secondLover}
       /> : null}
       <TouchableOpacity style={styles.calculateLove}
             onPress={()=>{
-                if(firstLover === '' || setSecondLover === ''){
-                    Alert.alert('Opps!!', 'Choice your partner then try again..!');
+                if (firstLover === ''){
+                    Alert.alert('Opps!!', 'Enter your name then try again..!');
                     return;
                     }
-                if(result)
+                else if (secondLover === ''){
+                  Alert.alert('Opps!!', 'Choice your partner then try again..!');
+                  return;
+                }
+                if (result)
                 {
                     setResult(false);
                     setFirstLover('');
                     setSecondLover('');
                 }
-                else
+                else {
                 setResult(true);
+                }
             }}
       >
-            <Text style = {styles.bottonText}>{result ? 'Try Again' : 'Calculate Love'}</Text>
+          <Text style = {[{borderRadius:20,backgroundColor: result ? 'green' : 'red'}, styles.bottonText]}>{result ? 'Try Again'  : 'Calculate Love'}</Text>
       </TouchableOpacity>
     </View>
 
   );
 }
 const styles = StyleSheet.create({
-    inputText:{
-      margin:10,
+    inputText : {
+      margin : 10,
       borderBottomWidth:1,
     },
     calculateLove:{
         color:'red',
-        backgroundColor:'#ed0900',
+        backgroundColor:'red',
         borderRadius: 20,
-        width:'50%',
+        width:'45%',
         alignSelf:'center',
+        marginTop:10,
     },
     bottonText:{
         textAlign:'center',
@@ -78,19 +90,18 @@ const styles = StyleSheet.create({
     resultText:{
         textAlign:'center',
         fontSize: 30,
-        
     },
     img: {
         alignSelf: 'center',
         height: 90,
         width: 230,
         borderRadius: 15,
-        padding:20
+        padding:20,
       },
       love:{
-        height: 90,
-        width: 90,
-        justifyContent:'center'
+        height: 120,
+        width: 120,
+       alignSelf:'center',
       },
       myView: {
         flex: 2,
@@ -101,21 +112,49 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         justifyContent: 'center',
       },
-      resultView: {
-        flex: 2,
-        flexDirection: 'row',
-        padding: 15,
-        margin: 2,
+      newView:{
+        height: 400,
+        //flex: 1,
+        padding: 20,
+        // margin: 2,
+        // marginTop:1,
+        // marginBottom:20,
+        marginVertical:20,
         elevation: 5,
         borderRadius: 15,
         backgroundColor: 'white',
         justifyContent: 'center',
       },
+      resultView: {
+        //flex: 2,
+        //flexDirection: 'row',
+        padding: 45,
+        marginTop: 20,
+        //margin: 0,
+        //borderRadius: 15,
+        //backgroundColor: 'white',
+        justifyContent: 'center',
+      },
       dev: {
         fontSize: 12,
         textAlign: 'center',
-        padding: 1,
+        padding: 5,
       },
+      percent:{
+        textAlign:'center',
+        fontSize: 40,
+        justifyContent:'center',
+        fontWeight:'bold',
+        color:'white',
+        backgroundColor:'red',
+        borderRadius:15,
+      },
+      comment:{
+        textAlign:'center',
+        fontSize:20,
+        fontWeight:'bold',
+        paddingBottom:40,
+      }
 });
 
 export default App;
