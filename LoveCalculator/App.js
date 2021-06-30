@@ -30,7 +30,7 @@ function App() {
         : null}
       {!result ? <TextInput
         style = {styles.inputText}
-        placeholder="Enter Your Lover Name"
+        placeholder="Enter Your Name"
         onChangeText={text => setFirstLover(text)}
         value={firstLover}
       /> : null}
@@ -47,7 +47,7 @@ function App() {
                     return;
                     }
                 else if (secondLover === ''){
-                  Alert.alert('Opps!!', 'Choice your partner then try again..!');
+                  Alert.alert('Opps!!', 'Choice your Partner name then try again..!');
                   return;
                 }
                 if (result)
