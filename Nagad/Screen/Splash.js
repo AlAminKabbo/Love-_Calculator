@@ -1,12 +1,28 @@
 import React from 'react';
-import {View, Text, ImageBackground} from 'react-native';
+import {
+  View,
+  Text,
+  ImageBackground,
+  StyleSheet,
+  ActivityIndicator,
+  StatusBar,
+} from 'react-native';
 const Splash = () => {
   return (
     <View style={styles.container}>
+      <StatusBar
+        barStyle="white-content"
+        hidden={false}
+        backgroundColor="#f14a28"
+        translucent={true}
+      />
       <ImageBackground
-        source={require('../Screen/Splash')}
+        source={require('../Image/SplashScreen.jpg')}
         style={styles.image}>
-        <Text style={styles.text}>1.0.71.01</Text>
+        <View style={styles.textView}>
+          <ActivityIndicator size="small" color="white" />
+          <Text style={styles.text}>1.0.71.01</Text>
+        </View>
       </ImageBackground>
     </View>
   );
@@ -17,14 +33,15 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
+  },
+  textView: {
+    position: 'absolute',
+    bottom: 20,
+    alignSelf: 'center',
   },
   text: {
     color: 'white',
-    fontSize: 42,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontSize: 14,
   },
 });
 
