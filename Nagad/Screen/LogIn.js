@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React,{useState} from 'react';
-import {View, Image, Text, TouchableOpacity, StyleSheet, TextInput,StatusBar} from 'react-native';
+import {View, Image, Text, TouchableOpacity, StyleSheet, TextInput,StatusBar, Alert} from 'react-native';
 
 const Number = '01728-861499';
 const number = '';
@@ -41,7 +41,7 @@ const LogIn = () => {
       </TouchableOpacity>
 
       <View style={styles.icon}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => Alert.alert('Please Wait', 'This feature is coming soon...')}>
         <Image source={require('../Image/storeLocator.png')} style={styles.storeLocator} />
         </TouchableOpacity>
         <TouchableOpacity>

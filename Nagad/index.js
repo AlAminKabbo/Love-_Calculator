@@ -9,4 +9,4 @@ import LogIn from './Screen/LogIn';
 import ContactUs from './Screen/ContactUs';
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => ContactUs);
+AppRegistry.registerComponent(appName, () => LogIn);
