@@ -10,7 +10,7 @@ import {
 import LogIn from './LogIn';
 const Splash = ({navigation}) => {
   setTimeout(() => {
-    navigation.replace(LogIn);
+    navigation.navigate(LogIn);
   }, 2000);
   return (
     <View style={styles.container}>
