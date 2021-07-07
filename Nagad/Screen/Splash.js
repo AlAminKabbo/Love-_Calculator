@@ -7,7 +7,11 @@ import {
   ActivityIndicator,
   StatusBar,
 } from 'react-native';
-const Splash = () => {
+import LogIn from './LogIn';
+const Splash = ({navigation}) => {
+  setTimeout(() => {
+    navigation.replace(LogIn);
+  }, 2000);
   return (
     <View style={styles.container}>
       <StatusBar

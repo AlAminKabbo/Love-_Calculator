@@ -1,12 +1,19 @@
 /* eslint-disable prettier/prettier */
 import React,{useState} from 'react';
-import {View, Image, Text, TouchableOpacity, StyleSheet, TextInput,StatusBar, Alert} from 'react-native';
+import {View, Image, Text, TouchableOpacity, StyleSheet, TextInput,StatusBar,Linking, Alert} from 'react-native';
 
-const Number = '01728-861499';
-const number = '';
 
-const LogIn = () => {
-    const [number, onChangeText] = useState('');
+const LogIn = ({ navigation }) => {
+  const [number, setNumber] = useState('');
+
+  const Number = '01728-861499';
+  const pasword = '1234';
+  const check = ()=>{
+    if (number === pasword)
+    {navigation.navigate('mainScreen');}
+    else
+    {Alert.alert( 'Login Failed', 'Wrong PIN. Please check and try again.');}
+  };
   return (
     <View style={styles.container}>
         <StatusBar
@@ -24,7 +31,7 @@ const LogIn = () => {
       <TextInput
         style={styles.input}
         placeholder="PIN"
-        onChangeText={onChangeText}
+        onChangeText={(text) => setNumber(text)}
         value={number}
         secureTextEntry
         keyboardType="numeric"
@@ -32,11 +39,11 @@ const LogIn = () => {
       />
       </View>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={check}>
           <Text style={styles.login}>LOGIN</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => Alert.alert('Please Wait', 'This feature is coming soon...')}>
           <Text style={styles.forgot}>Forgot PIN ?</Text>
       </TouchableOpacity>
 
@@ -44,10 +51,12 @@ const LogIn = () => {
         <TouchableOpacity onPress={() => Alert.alert('Please Wait', 'This feature is coming soon...')}>
         <Image source={require('../Image/storeLocator.png')} style={styles.storeLocator} />
         </TouchableOpacity>
-        <TouchableOpacity>
+
+        <TouchableOpacity onPress={()=> {Linking.openURL('https://nagad.com.bd/en/');}}>
         <Image source={require('../Image/offers.png')} style={styles.offers} />
         </TouchableOpacity>
-        <TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate('ContactUs')}>
         <Image source={require('../Image/help.png')} style={styles.help} />
         </TouchableOpacity>
       </View>
@@ -116,7 +125,6 @@ const styles = StyleSheet.create({
   },
   storeLocator:{
       marginBottom:15,
-      elevation:10,
   },
   offers:{
     marginTop:5,

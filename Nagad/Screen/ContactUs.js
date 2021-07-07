@@ -154,6 +154,9 @@ const styles = StyleSheet.create({
   viewThree: {
     height:'7%',
     backgroundColor:'#f8f8f8',
+    borderTopWidth:0.5,
+    marginHorizontal:15,
+    borderTopColor:'gray',
   },
   NagadSheba:{
     textAlign:'center',
